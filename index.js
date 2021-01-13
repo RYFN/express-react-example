@@ -4,8 +4,10 @@ import sqlite3 from "sqlite3";
 const app = express();
 const PORT = 3000;
 
+//Open the sqlite database
 const db = new sqlite3.Database("./data/gb.db");
 
+//query database for matching results
 const findResults = async (query) => {
   const result = new Promise((resolve, reject) => {
     let sql = `SELECT name, latitude, longitude FROM locations
@@ -25,8 +27,10 @@ const findResults = async (query) => {
   return result;
 };
 
+//expose the public directory at the root, this is where the react app is
 app.use(express.static("public"));
 
+//expose a GET API endpoint for the search
 app.get("/locations", async (req, res) => {
   if (!req.query.q || req.query.q.length < 3) {
     res.status(400);
@@ -44,6 +48,7 @@ app.get("/locations", async (req, res) => {
   }
 });
 
+//start the app listening.
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });
