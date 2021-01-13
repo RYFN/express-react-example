@@ -24,7 +24,7 @@
           updateError("");
           const query = event.target.value;
 
-          if (query.length > 2) {
+          if (query.length >= 2) {
             try {
               fetch(`http://localhost:3000/locations?q=${query}`)
                 .then((response) => response.json())

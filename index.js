@@ -32,7 +32,7 @@ app.use(express.static("public"));
 
 //expose a GET API endpoint for the search
 app.get("/locations", async (req, res) => {
-  if (!req.query.q || req.query.q.length < 3) {
+  if (!req.query.q || req.query.q.length < 2) {
     res.status(400);
     res.send();
   } else {
