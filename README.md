@@ -14,7 +14,7 @@ Open http://localhost:3000 in your browser.
 
 ## Data
 
-The GB.tsv file was converted to .csv, then imported into an SQLlite database using an external application, creating the db.db file which forms the datasource for this project.
+The GB.tsv file was converted to .csv, then imported into an SQLlite database using an external application, creating the gb.db file which forms the datasource for this project.
 
 ## Key challenges
 
