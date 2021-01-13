@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      const App = () => {
+        const [results, updateResults] = useState([]);
+        const [error, updateError] = useState("");
+
+        const findResults = (event) => {
+          updateError("");
+          const query = event.target.value;
+
+          if (query.length > 2) {
+            try {
+              fetch(`http://localhost:3000/locations?q=${query}`)
+                .then((response) => response.json())
+                .then((data) => updateResults(data));
+            } catch (ex) {
+              updateError(
+                "Unfortunately something went wrong, please try again"
+              );
+            }
+          } else {
+            updateResults([]);
+          }
+        };
+
+        return (
+          <div>
+            <h1>Enter content into the textbox to see matching results</h1>
+
+            <input
+              type="text"
+              placeholder="enter place name here..."
+              onChange={findResults}
+            />
+
+            <ul>
+              {results.map((item) => {
+                return <li>{item.name}</li>;
+              })}
+            </ul>
+
+            {error && <div>error</div>}
+          </div>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
